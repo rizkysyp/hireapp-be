@@ -6,7 +6,7 @@ const hireController = {
     insert: async (req,res,next)=>{
         try {
             
-            const { role, company_name, description } = req.body;
+            const { fullname, email, phonenumber, description } = req.body;
 
             const id_pekerja = req.params.id;
 

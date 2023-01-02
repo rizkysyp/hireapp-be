@@ -6,7 +6,7 @@ const hireController = {
     insert: async (req,res,next)=>{
         try {
             
-            const { role, company_name, description } = req.body;
+            const { fullname, email, phonenumber, description } = req.body;
 
             const id_pekerja = req.params.id;
 
@@ -25,7 +25,7 @@ const hireController = {
             return response(res, 400, false, error, "insert data gagal");
           }
         },
-    updateHire: async (req,res,next)=>{
+    updateHire: (req,res,next)=>{
         hire.updateData(req.params.id,req.body)
         .then((result) =>
         response(res, 200, true, result.rows, "update data success")
@@ -40,14 +40,14 @@ const hireController = {
       )
       .catch((err) => response(res, 404, false, err.routine, "delete data fail"));
     },
-    getHire: async (req,res,next)=>{
+    getHire: (req,res,next)=>{
         hire.selectData()
         .then((result) =>
         response(res, 200, true, result.rows, "get data success")
       )
       .catch((err) => response(res, 404, false, err.routine, "get data fail"));
     },
-    getById:  (req, res) => {
+    getById: (req, res) => {
       hire
       .selectDataById(req.params.id)
       .then((result) =>

@@ -7,6 +7,8 @@ const {
   getChat,
   findHireCompany,
   findHireEmployee,
+  chatCompany,
+  chatEmployee,
 } = require(`../model/hiring`);
 const createError = require("http-errors");
 const { v4: uuidv4 } = require("uuid");
@@ -86,11 +88,12 @@ const hireController = {
           photo: data.photo,
         };
         const result = await getChat(hire_id);
+        const chat = result.rows;
         const hasil = {
-          ...pekerja,
-          result,
+          ...perekrut,
+          chat,
         };
-        response(res, 200, true, hasil, "GET DATA SUCCESS", employee);
+        response(res, 200, true, hasil, "GET DATA SUCCESS");
       } else if (role === "company") {
         let {
           rows: [data],
@@ -109,6 +112,28 @@ const hireController = {
           chat,
         };
         response(res, 200, true, hasil, "GET DATA SUCCESS");
+      } else {
+        response(res, 200, false, [], "ROLE TIDAK TERBACA");
+      }
+    } catch (err) {
+      response(res, 404, false, err, "GAGAL MENDAPATKAN DATA");
+    }
+  },
+  postChat: async (req, res) => {
+    const role = req.payload.role;
+
+    const data = {
+      users_id: req.payload.id,
+      chat: req.body.chat,
+      hire_id: req.params.id,
+    };
+    try {
+      if (role === "employee") {
+        await chatEmployee(data);
+        response(res, 200, true, data, "POST CHAT EMPLOYEE SUCCESS");
+      } else if (role === "company") {
+        await chatCompany(data);
+        response(res, 200, true, data, "POST CHAT COMPANY SUCCESS");
       } else {
         response(res, 200, false, [], "ROLE TIDAK TERBACA");
       }

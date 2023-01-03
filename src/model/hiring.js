@@ -116,6 +116,44 @@ const findHireEmployee = (hire_id) => {
   );
 };
 
+const chatEmployee = (data) => {
+  const { hire_id, users_id, chat } = data;
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `INSERT INTO chat (hire_id, receiver_id, sender_id, chat)
+      SELECT id, company_id, '${users_id}', '${chat}'
+        FROM hire
+       WHERE id = '${hire_id}';`,
+      (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      }
+    )
+  );
+};
+
+const chatCompany = (data) => {
+  const { hire_id, users_id, chat } = data;
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `INSERT INTO chat (hire_id, receiver_id, sender_id, chat)
+      SELECT id, employee_id, '${users_id}', '${chat}'
+        FROM hire
+       WHERE id = '${hire_id}'`,
+      (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      }
+    )
+  );
+};
+
 module.exports = {
   addHire,
   firstChat,
@@ -124,4 +162,6 @@ module.exports = {
   getChat,
   findHireCompany,
   findHireEmployee,
+  chatEmployee,
+  chatCompany,
 };

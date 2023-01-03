@@ -35,6 +35,19 @@ CREATE TABLE company (
     photo VARCHAR DEFAULT 'https://res.cloudinary.com/dnu5su7ft/image/upload/v1671602986/flyer/default_profile.png'
 );
 
+CREATE TABLE hire (
+    id VARCHAR PRIMARY KEY,
+    position VARCHAR NOT NULL,
+    employee_id VARCHAR NOT NULL,
+    company_id VARCHAR NOT NULL
+    );
+CREATE TABLE chat (
+    id SERIAL PRIMARY KEY,
+    hire_id VARCHAR NOT NULL,
+    receiver_id VARCHAR NOT NULL,
+    sender_id VARCHAR NOT NULL
+    );
+
 SELECT users.id,users.email,profile.job as job, profile.province as province,
 profile.city as city, profile.workplace as workplace,profile.description as description,
 profile.photo as photo FROM users as users

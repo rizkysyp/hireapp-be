@@ -1,8 +1,13 @@
-const express = require(`express`);
+const express = require("express");
 const router = express.Router();
+const { experienceController } = require("./../controller/experience");
 const { protect } = require("../middleware/auth");
-const experiencesController = require("../controller/experience")
 
-router.post("/add",protect,experiencesController.experiencesController.Insert)
+router.post("/", protect, experienceController.insert);
+router.get("/", protect, experienceController.getExperience);
+router.put("/:id", experienceController.update);
+router.get("/detail/:id", experienceController.getById);
+router.delete("/:id", experienceController.delete);
+module.exports = router;
 
 module.exports = router;

@@ -195,7 +195,7 @@ const profileCompany = (id) => {
   return new Promise((resolve, reject) =>
     Pool.query(
       `SELECT users.id,users.email,profile.company_name as company_name, profile.position as position,
-    profile.province as province,profile.city as city, profile.email as email,profile.companyphone as companyphone,
+    profile.province as province,profile.city as city, profile.company_email as company_email,profile.companyphone as companyphone,
     profile.linkedin as linkedin,profile.photo as photo FROM users as users
     INNER Join company as profile ON users.id = profile.users_id
     WHERE users.id = '${id}';`,

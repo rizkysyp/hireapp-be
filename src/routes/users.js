@@ -23,4 +23,5 @@ router.put(
 
 router.get("/profile", protect, UsersController.profile);
 router.get("/employee/all", protect, UsersController.AllEmployee);
+
 module.exports = router;

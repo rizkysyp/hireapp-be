@@ -165,11 +165,14 @@ const UsersController = {
         linkedin,
       } = req.body;
       const { id } = req.payload;
+      const photo = req.file?.path || null;
+      let image;
 
-      const image = await cloudinary.uploader.upload(req.file.path, {
-        folder: "toko",
-      });
-
+      if (photo) {
+        image = await cloudinary.uploader.upload(photo, {
+          folder: "toko",
+        });
+      }
       const {
         rows: [company],
       } = await findCompany(id);
@@ -185,14 +188,14 @@ const UsersController = {
       } else {
         const dataProfile = {
           id,
-          company_name,
-          position,
-          province,
-          city,
-          company_email,
-          companyphone,
-          linkedin,
-          photo: image.url,
+          company_name: company_name || null,
+          position: position || null,
+          province: province || null,
+          city: city || null,
+          company_email: company_email || null,
+          companyphone: companyphone || null,
+          linkedin: linkedin || null,
+          photo: image?.url,
         };
 
         await updateCompany(dataProfile);
@@ -207,10 +210,15 @@ const UsersController = {
     try {
       const { name, job, province, city, workplace, description } = req.body;
       const { id } = req.payload;
+      const photo = req.file?.path || null;
+      let image;
 
-      const image = await cloudinary.uploader.upload(req.file.path, {
-        folder: "toko",
-      });
+      if (photo) {
+        image = await cloudinary.uploader.upload(photo, {
+          folder: "toko",
+        });
+      }
+
       const {
         rows: [employee],
       } = await findEmployee(id);
@@ -226,13 +234,13 @@ const UsersController = {
       } else {
         const dataProfile = {
           id,
-          name,
-          job,
-          province,
-          city,
-          workplace,
-          description,
-          photo: image.url,
+          name: name || null,
+          job: job || null,
+          province: province || null,
+          city: city || null,
+          workplace: workplace || null,
+          description: description || null,
+          photo: image?.url,
         };
 
         await updateEmployee(dataProfile);

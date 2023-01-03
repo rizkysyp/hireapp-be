@@ -163,6 +163,7 @@ const UsersController = {
         company_email,
         companyphone,
         linkedin,
+        description,
       } = req.body;
       const { id } = req.payload;
       const photo = req.file?.path || null;
@@ -195,6 +196,7 @@ const UsersController = {
           company_email: company_email || null,
           companyphone: companyphone || null,
           linkedin: linkedin || null,
+          description: description || null,
           photo: image?.url,
         };
 

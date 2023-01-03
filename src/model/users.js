@@ -116,13 +116,14 @@ const updateCompany = ({
   company_email,
   companyphone,
   linkedin,
+  description,
   photo,
 }) => {
   return new Promise((resolve, reject) =>
     Pool.query(
       `UPDATE company SET company_name = COALESCE($2, company_name), position = COALESCE($3, position), province = COALESCE($4, province),
-      city = COALESCE($5, city), email = COALESCE($6, email),companyphone = COALESCE($7,companyphone),
-      linkedin = COALESCE($8,linkedin),photo = COALESCE($9,photo) WHERE users_id = $1`,
+      city = COALESCE($5, city), company_email = COALESCE($6, company_email),companyphone = COALESCE($7,companyphone),
+      linkedin = COALESCE($8,linkedin),photo = COALESCE($9,photo) ,description= COALESCE($10,description) WHERE users_id = $1`,
       [
         id,
         company_name,
@@ -133,6 +134,7 @@ const updateCompany = ({
         companyphone,
         linkedin,
         photo,
+        description,
       ],
       (err, result) => {
         if (!err) {
@@ -196,7 +198,7 @@ const profileCompany = (id) => {
     Pool.query(
       `SELECT users.id,users.email,profile.company_name as company_name, profile.position as position,
     profile.province as province,profile.city as city, profile.company_email as company_email,profile.companyphone as companyphone,
-    profile.linkedin as linkedin,profile.photo as photo FROM users as users
+    profile.linkedin as linkedin,profile.description as description,profile.photo as photo FROM users as users
     INNER Join company as profile ON users.id = profile.users_id
     WHERE users.id = '${id}';`,
       (err, result) => {

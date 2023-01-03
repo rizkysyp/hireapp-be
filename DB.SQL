@@ -39,13 +39,17 @@ CREATE TABLE hire (
     id VARCHAR PRIMARY KEY,
     position VARCHAR NOT NULL,
     employee_id VARCHAR NOT NULL,
-    company_id VARCHAR NOT NULL
+    company_id VARCHAR NOT NULL,
+    description VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 CREATE TABLE chat (
     id SERIAL PRIMARY KEY,
     hire_id VARCHAR NOT NULL,
     receiver_id VARCHAR NOT NULL,
-    sender_id VARCHAR NOT NULL
+    sender_id VARCHAR NOT NULL,
+    chat VARCHAR NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
 SELECT users.id,users.email,profile.job as job, profile.province as province,
@@ -72,3 +76,39 @@ SELECT users.id,profile.name as name,users.email,profile.job as job, profile.pro
     profile.photo as photo FROM users as users
     INNER Join employee as profile ON users.id = profile.user_id
     WHERE users.role = 'employee' AND profile.name ILIKE '%%';
+
+-- POV USERS PEKERJA PAS MAU NGECHAT
+SELECT hire.id,hire.position,hire.employee_id,hire.company_id,profile.company_name as company_name,
+profile.photo as photo FROM hire as hire INNER JOIN company as profile ON hire.company_id = profile.users_id
+WHERE hire.employee_id = '8f1db5db-f362-4007-ab3b-86cae92b7c3c';
+
+-- POV USERS PEREKRUT PAS MAU NGECHAT
+SELECT hire.id,hire.position,hire.employee_id,hire.company_id,profile.name as name,
+profile.photo as photo FROM hire as hire INNER JOIN employee as profile ON hire.employee_id = profile.users_id
+WHERE hire.company_id = 'b5e736ba-115f-484a-90c4-01d6df026f1d';
+
+-- POV USERS PEKERJA NGECHAT PEREKRUT
+INSERT INTO chat (hire_id, receiver_id, sender_id, chat)
+SELECT id, company_id, '8f1db5db-f362-4007-ab3b-86cae92b7c3c', 'Baik Pak, Kira2 kapan?'
+  FROM hire
+ WHERE id = '1a9d50ca-3dae-4e70-9805-1cf003ec832d';
+
+ -- POV USERS PEREKRUT NGECHAT PEKERJA
+INSERT INTO chat (hire_id, receiver_id, sender_id, chat)
+SELECT id, employee_id, 'b5e736ba-115f-484a-90c4-01d6df026f1d', 'Tanggal 18 Januari 2022 apakah kamu bisa datang?'
+  FROM hire
+ WHERE id = '1a9d50ca-3dae-4e70-9805-1cf003ec832d';
+
+
+ -- POV ALL USERS CHAT 
+SELECT chat.id,chat.hire_id,chat.receiver_id,chat.sender_id,chat.chat,chat.created_at FROM chat as chat
+WHERE chat.hire_id='1a9d50ca-3dae-4e70-9805-1cf003ec832d';
+
+-- Find Data Hire Perekrut
+SELECT hire.id as hire_id,hire.position,profile.company_name as company_name,
+profile.photo as photo FROM hire as hire INNER JOIN company as profile ON hire.company_id = profile.users_id
+WHERE hire.id = '1a9d50ca-3dae-4e70-9805-1cf003ec832d';
+
+SELECT hire.id,hire.position,hire.employee_id,profile.name as name,
+profile.photo as photo FROM hire as hire INNER JOIN employee as profile ON hire.employee_id = profile.users_id
+WHERE hire.id = '1a9d50ca-3dae-4e70-9805-1cf003ec832d';

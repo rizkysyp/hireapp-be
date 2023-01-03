@@ -300,6 +300,14 @@ const UsersController = {
       response(res, 404, error, "DATA TIDAK DITEMUKAN");
     }
   },
+  detailEmployee: async (req, res, next) => {
+    try {
+      const result = await profileEmploye(req.params.id);
+      response(res, 404, false, result.rows, "GET EMPLOYEE SUCESS");
+    } catch (error) {
+      response(res, 404, error, "DATA TIDAK DITEMUKAN");
+    }
+  },
 };
 
 exports.UsersController = UsersController;

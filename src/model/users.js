@@ -177,7 +177,7 @@ const updateEmployee = ({
 const profileEmploye = (id) => {
   return new Promise((resolve, reject) =>
     Pool.query(
-      `SELECT users.id,users.email,profile.job as job, profile.province as province,
+      `SELECT users.id,users.email,profile.job as job, profile.name as name,profile.province as province,
     profile.city as city, profile.workplace as workplace,profile.description as description,
     profile.photo as photo FROM users as users
     INNER Join employee as profile ON users.id = profile.users_id
@@ -196,7 +196,7 @@ const profileEmploye = (id) => {
 const profileCompany = (id) => {
   return new Promise((resolve, reject) =>
     Pool.query(
-      `SELECT users.id,users.email,profile.company_name as company_name, profile.position as position,
+      `SELECT users.id,users.email,profile.name as username,profile.company_name as company_name, profile.position as position,
     profile.province as province,profile.city as city, profile.company_email as company_email,profile.companyphone as companyphone,
     profile.linkedin as linkedin,profile.description as description,profile.photo as photo FROM users as users
     INNER Join company as profile ON users.id = profile.users_id

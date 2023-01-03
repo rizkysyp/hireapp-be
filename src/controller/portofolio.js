@@ -39,6 +39,16 @@ const portofolioController = {
       response(res, 404, false, "get portofolio failed");
     }
   },
+
+  detail: async (req, res, next) => {
+    try {
+      const result = await modelPortofolio.detailPortofolio(req.params.id);
+      response(res, 200, true, result.rows, "get portofolio success");
+    } catch (error) {
+      console.log(error);
+      response(res, 404, false, "get portofolio failed");
+    }
+  },
   Delete: async (req, res, next) => {
     try {
       const id_table = req.params.id;

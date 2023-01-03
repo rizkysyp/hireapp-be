@@ -11,7 +11,7 @@ router.post(
   portofolioController.portofolioController.Insert
 );
 router.get("/get", protect, portofolioController.portofolioController.Get);
-router.delete("/delete", portofolioController.portofolioController.Delete);
+router.delete("/delete/:id", portofolioController.portofolioController.Delete);
 router.put(
   "/edit/:id",
   upload.single("photo"),

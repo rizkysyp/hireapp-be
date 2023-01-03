@@ -41,7 +41,7 @@ const portofolioController = {
   },
   Delete: async (req, res, next) => {
     try {
-      const { id_table } = req.body;
+      const id_table = req.params.id;
       const data = {
         id_table,
       };

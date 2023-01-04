@@ -155,14 +155,27 @@ const updateEmployee = ({
   city,
   workplace,
   description,
+  instagram,
+  github,
   photo,
 }) => {
   return new Promise((resolve, reject) =>
     Pool.query(
       `UPDATE employee SET name = COALESCE($2, name), job = COALESCE($3, job), province = COALESCE($4, province),
       city = COALESCE($5, city),workplace = COALESCE($6, workplace),description = COALESCE($7,description),
-      photo = COALESCE($8,photo) WHERE users_id = $1`,
-      [id, name, job, province, city, workplace, description, photo],
+      photo = COALESCE($8,photo), github = COALESCE($9,github),instagram = COALESCE($10,instagram) WHERE users_id = $1`,
+      [
+        id,
+        name,
+        job,
+        province,
+        city,
+        workplace,
+        description,
+        photo,
+        github,
+        instagram,
+      ],
       (err, result) => {
         if (!err) {
           resolve(result);

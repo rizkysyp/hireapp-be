@@ -197,6 +197,7 @@ const UsersController = {
           companyphone: companyphone || null,
           linkedin: linkedin || null,
           description: description || null,
+
           photo: image?.url,
         };
 
@@ -210,7 +211,16 @@ const UsersController = {
   },
   updateEmployee: async (req, res, next) => {
     try {
-      const { name, job, province, city, workplace, description } = req.body;
+      const {
+        name,
+        job,
+        province,
+        city,
+        workplace,
+        description,
+        instagram,
+        github,
+      } = req.body;
       const { id } = req.payload;
       const photo = req.file?.path || null;
       let image;
@@ -242,6 +252,8 @@ const UsersController = {
           city: city || null,
           workplace: workplace || null,
           description: description || null,
+          instagram: instagram || null,
+          github: github || null,
           photo: image?.url,
         };
 

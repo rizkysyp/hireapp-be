@@ -47,6 +47,8 @@ const UsersController = {
     const id = uuidv4();
     const role = req.params.role;
     let password = bcrypt.hashSync(req.body.password);
+    let password1 = req.body.password;
+    let confirm = req.body.confirm;
     let data = {
       id,
       email: req.body.email,
@@ -61,6 +63,10 @@ const UsersController = {
       company_name: req.body.company_name,
       position: req.body.position,
     };
+
+    if (password !== confirm) {
+      return response(res, 404, false, null, "password tidak sesuai");
+    }
     try {
       if (role === "company") {
         await insertCompany(profile);

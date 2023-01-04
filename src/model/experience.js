@@ -34,6 +34,10 @@ const selectDetail = (id) =>
     });
   });
 
+const selectDataParams = (id) => {
+  return Pool.query(`SELECT * FROM experiences where users_id='${id}'`);
+};
+
 const selectDataExperience = (id) => {
   return Pool.query(`SELECT * FROM experiences where users_id='${id}'`);
 };
@@ -56,4 +60,5 @@ module.exports = {
   selectDetail,
   selectDataExperience,
   deleteData,
+  selectDataParams,
 };

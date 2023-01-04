@@ -42,8 +42,25 @@ const GetSkill = (data) => {
     )
   );
 };
+
+const GetParams = (id) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `SELECT id,skill FROM skill WHERE skill.users_id='${id}'`,
+      (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      }
+    )
+  );
+};
+
 module.exports = {
   insertSkill,
   DeleteSkill,
   GetSkill,
+  GetParams,
 };

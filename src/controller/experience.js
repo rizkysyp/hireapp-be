@@ -57,6 +57,13 @@ const experienceController = {
       )
       .catch((err) => response(res, 404, false, err.routine, "get data fail"));
   },
+  getExperienceParams: (req, res, next) => {
+    ModelExperience.selectDataParams(req.params.id)
+      .then((result) =>
+        response(res, 200, true, result.rows, "get data success")
+      )
+      .catch((err) => response(res, 404, false, err.routine, "get data fail"));
+  },
 };
 
 exports.experienceController = experienceController;

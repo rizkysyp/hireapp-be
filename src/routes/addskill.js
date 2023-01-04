@@ -11,5 +11,6 @@ router.delete(
   addSkillController.addSkillController.Delete
 );
 router.get("/get", protect, addSkillController.addSkillController.Get);
+router.get("/:id", protect, addSkillController.addSkillController.GetByParams);
 
 module.exports = router;

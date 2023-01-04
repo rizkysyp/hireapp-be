@@ -83,6 +83,15 @@ const portofolioController = {
       response(res, 404, false, "edit portofolio failed");
     }
   },
+  GetByParams: async (req, res, next) => {
+    try {
+      const result = await modelPortofolio.getParams(req.params.id);
+      response(res, 200, true, result.rows, "get portofolio success");
+    } catch (error) {
+      console.log(error);
+      response(res, 404, false, "get portofolio failed");
+    }
+  },
 };
 
 exports.portofolioController = portofolioController;

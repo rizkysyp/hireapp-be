@@ -33,6 +33,21 @@ const getPortofolio = (data) => {
   );
 };
 
+const getParams = (id) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(
+      `SELECT * FROM portofolio WHERE portofolio.users_id='${id}'`,
+      (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      }
+    )
+  );
+};
+
 const detailPortofolio = (id) => {
   return new Promise((resolve, reject) =>
     Pool.query(`SELECT * FROM portofolio where id='${id}'`, (err, result) => {
@@ -83,4 +98,5 @@ module.exports = {
   putPortofolio,
   delPortofolio,
   detailPortofolio,
+  getParams,
 };

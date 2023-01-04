@@ -40,7 +40,7 @@ const hireController = {
       }
       await addHire(data);
       await firstChat(chat);
-      response(res, 200, false, data, "INPUT DATA HIRE BERHASIL");
+      response(res, 200, true, data, "INPUT DATA HIRE BERHASIL");
     } catch (err) {
       response(res, 404, false, err, " register fail");
     }

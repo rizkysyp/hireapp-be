@@ -19,4 +19,9 @@ router.put(
   portofolioController.portofolioController.Put
 );
 router.get("/detail/:id", portofolioController.portofolioController.detail);
+router.get(
+  "/:id",
+  protect,
+  portofolioController.portofolioController.GetByParams
+);
 module.exports = router;

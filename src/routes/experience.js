@@ -8,6 +8,7 @@ router.get("/", protect, experienceController.getExperience);
 router.put("/:id", experienceController.update);
 router.get("/detail/:id", experienceController.getById);
 router.delete("/:id", experienceController.delete);
+router.get("/:id", protect, experienceController.getExperienceParams);
 module.exports = router;
 
 module.exports = router;

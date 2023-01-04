@@ -192,7 +192,7 @@ const profileEmploye = (id) => {
     Pool.query(
       `SELECT users.id,users.email,profile.job as job, profile.name as name,profile.province as province,
     profile.city as city, profile.workplace as workplace,profile.description as description,
-    profile.photo as photo FROM users as users
+    profile.photo as photo,profile.instagram as instagram, profile.github as github FROM users as users
     INNER Join employee as profile ON users.id = profile.users_id
     WHERE users.id = '${id}';`,
       (err, result) => {

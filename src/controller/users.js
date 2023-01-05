@@ -64,7 +64,7 @@ const UsersController = {
       position: req.body.position,
     };
 
-    if (password !== confirm) {
+    if (password1 !== confirm) {
       return response(res, 404, false, null, "password tidak sesuai");
     }
     try {
